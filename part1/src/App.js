@@ -1,14 +1,23 @@
 
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">  
-      <h1>bootcamp</h1>
-      <strong>estamos iniciando</strong>  
-   
-    </div>
-  );
+
+const Title= ({course})=>{
+ 
+  return<h1>{course}</h1>
 }
 
+const App =()=>{
+  const course= 'Half stack aplication development'
+  const part1 ='fundamentals of react'
+  return(
+    <div>
+      <Title course={course}/ >
+      <p>
+      {part1}
+    </p>
+    </div>
+  
+  )
+}
 export default App;
