@@ -1,11 +1,9 @@
-  const Note =({ categories=[],  content, date}) =>{
+  const Note =({ title,body}) =>{
     return(
       <li ><p>
-      {content} </p>
-      <small><time>{date}</time></small>
-     {categories.map( (category) =>(
-        <small key={category}>{category}</small>
-      ))}  </li>
+      {title} </p>
+      <small>{body}</small>
+    </li>
     )
   }
 
