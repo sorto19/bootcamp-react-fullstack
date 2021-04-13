@@ -2,7 +2,9 @@
 import './App.css';
 import Note from './notes'
 import {useState, useEffect} from 'react'
-import axios from 'axios'
+
+import { getAllNotes } from './services/notes/AllNotes';
+import { createNotes } from './services/notes/createNotes';
 
 
 export default function App() {
@@ -10,20 +12,18 @@ export default function App() {
   const [notes, setNotes] = useState([]);
   const [newNote,setNewNote] =useState('')
   const [loading, setLoading] = useState(false)
+  const [error,setError] =useState('')
 
  useEffect(() => {
    console.log("usando useEffect");
    setLoading(true)
- setTimeout( () =>{
-  axios.get('https://jsonplaceholder.typicode.com/posts')
-  .then((response)=>{
-    const {data} =response
-  setNotes(data)
-  console.log(response)
+ getAllNotes().then((notes)=>{
+   
+  setNotes(notes)
   setLoading(false)
   });
- },3000)
- },[newNote]);
+
+ },[]);
 
 
    const handleChange = (event) =>{
@@ -32,15 +32,21 @@ export default function App() {
    };
    const handleSubmit =(event) =>{
      event.preventDefault();
+
      console.log('crear nota')
      const noteToAddToState={
-       id: notes.length +1,
        title: newNote,
-      body:newNote
+      body:newNote,
+      userId:1
      };
-    
-     setNotes([...notes, noteToAddToState]);
-     console.log("steando las notas");
+   createNotes(noteToAddToState)
+   .then((newNote) =>{
+    setNotes((prevNotes) => prevNotes.concat(newNote));
+   }).catch(error =>{
+     console.error(error);
+     setError('la api peto')
+   })
+    setError('')
      setNewNote("");
      
    }
@@ -63,6 +69,7 @@ export default function App() {
       <input  type="Text" onChange={handleChange}      /> 
        <button type="submit" value={newNote}>Crear Nota</button>
       </form>
+      {error? <span>{error}</span>:''}
     </div>
   );
 }
