@@ -1,0 +1,16 @@
+POST http://localhost:3007/api/notes
+Content-Type: application/json
+
+{
+    "content":"esto es post en java desde backend", 
+    "important": true
+    
+}
+###
+POST http://localhost:3007/api/notes
+Content-Type: application/json
+
+{
+   
+    
+}

@@ -39,8 +39,7 @@ export default function App() {
       body:newNote,
       userId:1
      };
-   createNotes(noteToAddToState)
-   .then((newNote) =>{
+   createNotes(noteToAddToState).then((newNote )=>{
     setNotes((prevNotes) => prevNotes.concat(newNote));
    }).catch(error =>{
      console.error(error);
